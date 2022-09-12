@@ -1,0 +1,11 @@
+{
+  "name": "work-portal",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Boowar/work-portal.git",
+  "author": "as.yarchuk <as.yarchuk@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
