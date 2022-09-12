@@ -1,0 +1,29 @@
+import { FC } from 'react'
+import {useTypedSelector} from "../hooks/useTypedSelector";
+import ItemButtons from './ItemButtons';
+
+interface ItemProps {
+  id: number | string
+  name: string
+  count: number
+}
+
+const Item:FC<ItemProps> = (props) => {
+  const {isAuth} = useTypedSelector(state => state.auth);
+
+  return (
+    <div className="item-field">
+      <div className="item-field_text">
+        <div className="item-field_name">{props.name}: </div>
+        <div className="item-field_count">{props.count}</div>
+      </div>        
+      {isAuth 
+            ?
+      <ItemButtons {...props}/>
+      :
+      <></>}
+    </div>
+  )
+}
+
+export default Item
