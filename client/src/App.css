@@ -2,6 +2,19 @@
   margin: 0;
   padding: 0;
 }
+@media (max-width: 640px) {
+
+  .row{
+    max-width: 320px;    
+  }
+}
+@media (min-width: 640px) {
+
+  .row{
+    max-width: 900px;   
+  }
+}
+
 html,body{
   height:100%;
   background: rgb(189, 224, 255);
@@ -36,11 +49,6 @@ html,body{
   text-align: center;
   font-size: 16px;
   background-color: rgb(1, 1, 124);
-}
-
-.row{
-  max-width: 900px;
-  
 }
 
 .h100 {
