@@ -19,9 +19,26 @@ const Item = sequelize.define('Item',{
     name: {type: DataTypes.STRING, defaultValue: 0},
 })
 
+Item.hasMany(CountTransaction)
+CountTransaction.belongsTo(Item)
 
+User.hasMany(Item)
+Item.belongsTo(User)
+
+User.hasMany(CountTransaction)
+CountTransaction.belongsTo(User)
+
+const createAdmin = async () => await User.create({username: 'admin', email: 'admin@mail.ru', password: '123', role: 'admin'}).then(res=>console.log(res)).catch(err=>console.log(err))
+const createUser = async () => await User.create({username: 'user', email: 'user@mail.ru', password: '123', role: 'user'}).then(res=>console.log(res)).catch(err=>console.log(err))
+const createItem = async (name) => await Item.create({name: name, userId: 1}).then(res=>console.log(res)).catch(err=>console.log(err))
+
+
+ 
 module.exports = {
     User,
     CountTransaction,
-    Item
+    Item,
+    createAdmin,
+    createUser,
+    createItem,
 }
