@@ -1,4 +1,4 @@
-const {CountTransaction} = require('../models/models')
+const {CountTransaction} = require('../sequelize/models/countTransaction.model')
 const ApiError = require('../error/ApiError');
 
 class CountTransactionController {

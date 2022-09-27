@@ -1,20 +1,21 @@
 require('dotenv').config()
-const express = require('express')
+//const express = require('express')
+const app = require('./app')
 const sequelize = require('./sequelize')
 //const models = require('./routes/index')
-const cors = require('cors')
-const router = require('./routes/index')
-const errorHandler = require('./middleware/ErrorHandlingMiddleware')
-const path = require('path')
+//const cors = require('cors')
+//const router = require('./routes/index')
+//const errorHandler = require('./middleware/ErrorHandlingMiddleware')
+//const path = require('path')
 
 const PORT = process.env.PORT || 3001
 
-const app = express()
-app.use(cors())
-app.use(express.json())
-app.use('/api', router)
+//const app = express()
+//app.use(cors())
+//app.use(express.json())
+//app.use('/api', router)
 
-app.use(errorHandler)
+//app.use(errorHandler)
 
 async function assertDatabaseConnectionOk() {
 	console.log(`Checking database connection...`);

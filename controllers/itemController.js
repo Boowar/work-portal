@@ -1,4 +1,4 @@
-const {Item} = require('../models/models')
+const {Item} = require('../sequelize/models/item.model')
 const ApiError = require('../error/ApiError');
 
 class ItemController {

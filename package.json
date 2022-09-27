@@ -5,7 +5,8 @@
   "scripts": {
     "server": "nodemon index.js",
     "client": "yarn --cwd client start",
-    "dev": "concurrently \"yarn server\" \"yarn client\""
+    "dev": "concurrently \"yarn server\" \"yarn client\"",
+    "setup-db": "node ./setup.js"
   },
   "repository": "https://github.com/Boowar/work-portal.git",
   "author": "as.yarchuk <as.yarchuk@gmail.com>",
