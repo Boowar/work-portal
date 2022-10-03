@@ -1,7 +1,7 @@
 const ApiError = require('../error/ApiError');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const {User} = require('../sequelize/models/user.model')
+const {User} = require('../sequelize/models/models')
 
 const generateJwt = (id, email, role) => {
     return jwt.sign(
@@ -28,6 +28,7 @@ class UserController {
     }
 
     async login(req, res, next) {
+        console.log('UserController: login')
         const {email, password} = req.body
         const user = await User.findOne({where: {email}})
         if (!user) {

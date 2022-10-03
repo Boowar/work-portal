@@ -1,21 +1,21 @@
-const {CountTransaction} = require('../sequelize/models/countTransaction.model')
+const {CountTransaction} = require('../sequelize/models/models')
 const ApiError = require('../error/ApiError');
 
 class CountTransactionController {
     async create(req, res) {
         const {name} = req.body
-        const item = await Item.create({name})
+        const item = await CountTransaction.create({name})
         return res.json(item)
     }
 
     async getAll(req, res) {
-        const items = await Item.findAll()
+        const items = await CountTransaction.findAll()
         return res.json(items)
     }
 
     async getOne(req,res) {
         const {id} = req.params
-        const item = await DeviceMotionEvent.findOne(
+        const item = await CountTransaction.findOne(
             {
                 where: {id}
             }
