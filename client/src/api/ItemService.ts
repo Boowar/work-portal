@@ -2,12 +2,13 @@ import axios, {AxiosResponse} from "axios";
 import {IItem} from "../models/IItem";
 
 export default class ItemService {
-    public static readonly mainURL = 'http://172.16.201.169:3001'
+    public static readonly mainURL = 'http://172.16.201.169:3001/api'
     
-    static async getItems(): Promise<AxiosResponse> {
+    static async getItems(){
        // return axios.get<IItem[]>('./items.json')
-       const response = axios.get<IItem[]>(`${ItemService.mainURL}/items`)
-       return response
+          const response = axios.get<IItem[]>(`${ItemService.mainURL}/counttransaction`)
+          console.log("getItems", response)
+       return response.then((data)=> data)
     }
 
     static async getItem(data: number | string): Promise<AxiosResponse> {

@@ -4,6 +4,7 @@ const countTransactionController = require('../controllers/countTransactionContr
 const checkRole = require('../middleware/checkRoleMiddleware')
 
 router.post('/', checkRole('ADMIN'), countTransactionController.create)
-router.get('/', countTransactionController.getAll)
+router.get('/alltransactions', countTransactionController.getAll)
+router.get('/', countTransactionController.getAllCurrentCount)
 
 module.exports = router

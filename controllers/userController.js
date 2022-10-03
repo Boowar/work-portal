@@ -29,21 +29,22 @@ class UserController {
 
     async login(req, res, next) {
         console.log('UserController: login')
-        const {email, password} = req.body
-        const user = await User.findOne({where: {email}})
+        const {username, password} = req.body
+        const user = await User.findOne({where: {username}})
         if (!user) {
             return next(ApiError.internal('Пользователь не найден'))
         }
-        let comparePassword = bcrypt.compareSync(password, user.password)
+        //let comparePassword = bcrypt.compareSync(password, user.password)
+        let comparePassword = password === user.password
         if (!comparePassword) {
             return next(ApiError.internal('Указан неверный пароль'))
         }
-        const token = generateJwt(user.id, user.email, user.role)
+        const token = generateJwt(user.id, user.username, user.role)
         return res.json({token})
     }
 
     async check(req, res, next) {
-        const token = generateJwt(req.user.id, req.user.email, req.user.role)
+        const token = generateJwt(req.user.id, req.user.username, req.user.role)
         return res.json({token})
     }
 }

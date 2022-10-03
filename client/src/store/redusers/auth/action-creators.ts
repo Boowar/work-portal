@@ -13,7 +13,7 @@ export const AuthActionCreators = {
         try{
             dispatch(AuthActionCreators.setIsLoading(true))
             dispatch(AuthActionCreators.setUser({username, password}))
-            const isAuth = await LoginService.postUser(username, password)
+            const isAuth = await LoginService.login(username, password)
             if (isAuth){
                 console.log("true", isAuth)
                 dispatch(AuthActionCreators.setIsAuth(true))

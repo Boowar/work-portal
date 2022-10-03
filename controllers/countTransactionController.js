@@ -1,4 +1,5 @@
-const {CountTransaction} = require('../sequelize/models/models')
+const {CountTransaction, Item} = require('../sequelize/models/models')
+const sequelize = require('../sequelize')
 const ApiError = require('../error/ApiError');
 
 class CountTransactionController {
@@ -9,7 +10,18 @@ class CountTransactionController {
     }
 
     async getAll(req, res) {
-        const items = await CountTransaction.findAll()
+        console.log('CountTransaction: getAll')
+        const items = await CountTransaction.findAll({include: Item})
+        return res.json(items)
+    }
+
+    async getAllCurrentCount(req, res) {
+        console.log('CountTransaction: getAll')
+        const items = await CountTransaction.findAll({
+            order: [sequelize.fn('MAX', sequelize.col('CountTransaction.id'))],
+            include: Item, 
+            group: ['itemId']
+        })
         return res.json(items)
     }
 

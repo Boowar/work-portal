@@ -71,13 +71,14 @@ nameItem: (payload: any, name: string) =>  async(dispatch: AppDispatch) => {
 fetchItems: () => async(dispatch: AppDispatch) => {
     try {
         setTimeout(async () => {
-            const response = await ItemService.getItems()
+            const {data} = await ItemService.getItems()
+            console.log("response", data)
             const items:Array<IItem> = []
-            response.data.items.map((item:IItemDB) => {
+           data.map((item:any) => {
                 const temp:IItem = {id:0,name:'',count:0}
-                temp.id = item.Item_ID
-                temp.name = item.Item_Name
-                temp.count = item.Item_Count
+                temp.id = item.Item.id
+                temp.name = item.Item.name
+                temp.count = item.count
                 items.push(temp)
             })
             dispatch(ItemActionCreators.setItem(items))
