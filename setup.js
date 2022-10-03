@@ -6,8 +6,8 @@ async function reset() {
     await sequelize.sync({ force: true })
 
     await sequelize.models.User.bulkCreate([
-        {username: 'admin', email: 'admin@mail.ru', password: '123', role: 'admin'},
-        {username: 'user', email: 'user@mail.ru', password: '111', role: 'user'}
+        {username: 'admin', email: 'admin@mail.ru', password: '$2a$05$d03lRFN5F1jeH/TsaG4jmeSw8pyYCZxCt2vTH4xtWHl2yeUTE2DDG', role: 'admin'},
+        {username: 'user', email: 'user@mail.ru', password: '$2a$05$R8CSf6O1mU/ojU0xP3Q.seQpJ0ROVPfE4FQSZMtTwAXGYkto0o0FC', role: 'user'}
     ])
 
     await sequelize.models.Item.bulkCreate([
