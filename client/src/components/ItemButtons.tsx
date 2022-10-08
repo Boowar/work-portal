@@ -14,7 +14,7 @@ interface ItemProps {
 
 const ItemButtons:FC<ItemProps> = (props) => {
   const {incCountItem, decCountItem, delItem, nameItem} = useActions()
-
+  console.log('ItemButtons props', props)
   return (
     <div className="item-field_buttons">
       <Button icon={<ReactPatchPlus />} text="Очко Гриффиндору" onClick={()=> incCountItem(props)} className="item-field_button_plus"/>

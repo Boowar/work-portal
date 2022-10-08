@@ -1,8 +1,7 @@
 import {SetAuthAction, AuthActionEnum, SetErrorAction, SetUserAction, SetIsLoadingAction} from './types'
 import { IUser } from "../../../models/IUser";
 import {AppDispatch} from "../../index";
-import SignupService from '../../../api/SignupService';
-import LoginService from '../../../api/LoginService';
+import UserService from '../../../api/UserService';
 
 export const AuthActionCreators = {
     setUser: (user: IUser): SetUserAction => ({type: AuthActionEnum.SET_USER, payload: user}),
@@ -12,10 +11,13 @@ export const AuthActionCreators = {
     login: (username: string, password: string) => async (dispatch: AppDispatch) =>{
         try{
             dispatch(AuthActionCreators.setIsLoading(true))
-            dispatch(AuthActionCreators.setUser({username, password}))
-            const isAuth = await LoginService.login(username, password)
+            const isAuth = await UserService.login(username, password)
+            console.log('login isAuth:', isAuth)
+            console.log('login isAuth.id:', isAuth.id)
+            const id = isAuth.id
+            dispatch(AuthActionCreators.setUser({id, username, password}))
             if (isAuth){
-                console.log("true", isAuth)
+                console.log("isAuth:", isAuth)
                 dispatch(AuthActionCreators.setIsAuth(true))
             } else {
                 console.log("false")
@@ -34,7 +36,7 @@ export const AuthActionCreators = {
         try{
             dispatch(AuthActionCreators.setIsLoading(true))
             console.log("signin")
-            await SignupService.addUser(username, password, email)
+            await UserService.registration(username, password, email)
             dispatch(AuthActionCreators.setIsLoading(false))
         } catch (e) {
             dispatch(AuthActionCreators.setError('Произошла ошибка при регистрации'))

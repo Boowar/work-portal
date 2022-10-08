@@ -11,18 +11,18 @@ async function reset() {
     ])
 
     await sequelize.models.Item.bulkCreate([
-        {name: 'Поликлиника', UserId: 1},
-        {name: 'Стационар', UserId: 1}
+        {name: 'Поликлиника', userId: 1},
+        {name: 'Стационар', userId: 1}
     ])
 
     await sequelize.models.CountTransaction.bulkCreate([
-        {count: 0, ItemId: 1, UserId: 1},
-        {count: 0, ItemId: 2, UserId: 2},
-        {count: 1, ItemId: 2, UserId: 2},
-        {count: 2, ItemId: 2, UserId: 2},
-        {count: 1, ItemId: 1, UserId: 1},
-        {count: 2, ItemId: 1, UserId: 1},
-        {count: 1, ItemId: 2, UserId: 2},
+        {count: 0, itemId: 1, userId: 1},
+        {count: 0, itemId: 2, userId: 2},
+        {count: 1, itemId: 2, userId: 2},
+        {count: 2, itemId: 2, userId: 2},
+        {count: 1, itemId: 1, userId: 1},
+        {count: 2, itemId: 1, userId: 1},
+        {count: 1, itemId: 2, userId: 2},
     ])
 
     console.log('Done!')

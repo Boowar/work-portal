@@ -1,39 +1,65 @@
-const {CountTransaction, Item} = require('../sequelize/models/models')
+const {models} = require('../sequelize')
 const sequelize = require('../sequelize')
 const ApiError = require('../error/ApiError');
+const { LogTimings } = require('concurrently');
 
 class CountTransactionController {
     async create(req, res) {
-        const {name} = req.body
-        const item = await CountTransaction.create({name})
-        return res.json(item)
+        const {itemId, userId, count} = req.body
+        console.log('CountTransactionController create req.body:', req.body)
+        console.log('CountTransactionController create itemId:', itemId)
+        console.log('CountTransactionController create userId:', userId)
+        console.log('CountTransactionController create count:', count)
+        const rating = await models.CountTransaction.create({itemId, userId, count:0})
+        console.log('CountTransactionController create rating:', rating)
+        return res.json(rating)
     }
 
     async getAll(req, res) {
         console.log('CountTransaction: getAll')
-        const items = await CountTransaction.findAll({include: Item})
+        const items = await models.CountTransaction.findAll({include: models.Item})
         return res.json(items)
     }
 
     async getAllCurrentCount(req, res) {
-        console.log('CountTransaction: getAll')
-        const items = await CountTransaction.findAll({
+        console.log('CountTransaction: getAllCurrentCount')
+        /*const items = await models.CountTransaction.findAll({
             order: [sequelize.fn('MAX', sequelize.col('CountTransaction.id'))],
-            include: Item, 
+            include: [{model: CountTransaction,as: 'ItemId'}], 
+            group: ['itemId']
+        })*/
+        const items = await models.CountTransaction.findAll({
+            attributes: {include:[[sequelize.fn('MAX', sequelize.col('CountTransaction.id')), 'id']]},
+            include: [{model: models.Item, as: 'item'}],
             group: ['itemId']
         })
+        console.log('CountTransaction: getAllCurrentCount', items)
         return res.json(items)
     }
 
+    async getOneCurrentCount(req, res) {
+        console.log('CountTransaction: getAllCurrentCount')
+        const {id} = req.params
+        const item = await models.CountTransaction.findOne({
+            where: {id},
+            attributes: {include:[[sequelize.fn('MAX', sequelize.col('CountTransaction.id')), 'id']]},
+            include: [{model: models.Item, as: 'item'}],
+            group: ['itemId']
+        })
+        console.log('CountTransaction: getAllCurrentCount', item)
+        return res.json(item)
+    }    
+
     async getOne(req,res) {
         const {id} = req.params
-        const item = await CountTransaction.findOne(
+        const item = await models.CountTransaction.findOne(
             {
                 where: {id}
             }
         )
             return res.json(item)
     }
+
 }
 
 module.exports = new CountTransactionController()

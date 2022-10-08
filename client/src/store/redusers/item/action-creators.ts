@@ -6,13 +6,15 @@ import {ItemActionEnum, SetErrorAction, SetItemAction, SortByIncCountItemAction,
 
 export const ItemActionCreators = {
 setItem: (payload: Array<IItem>): SetItemAction => ({type: ItemActionEnum.SET_ITEM, payload}),
-addItem: (payload: string) => async(dispatch: AppDispatch) => {
+addItem: (payload: string, userId:number) => async(dispatch: AppDispatch) => {
     console.log("addItem1", payload)
     if(!payload || payload === "null" ){
         payload="Не забывай называть!"
     }
     try{      
-        await ItemService.addItem(payload)
+       const newItem = await ItemService.addItem(payload, userId)
+       console.log('newItem', newItem)
+
         dispatch({type: ItemActionEnum.ADD_ITEM, payload})
     } catch (e) {
         console.log('Ошибка', e)
@@ -29,9 +31,10 @@ delItem: (payload: any) =>  async(dispatch: AppDispatch) => {
 setError: (payload: string): SetErrorAction => ({type: ItemActionEnum.SET_ERROR, payload}),
 incCountItem: (payload: any) =>  async(dispatch: AppDispatch) => {
     try{
+        console.log('incCountItem payload',payload)
         const currentItem = await ItemService.getItem(payload.id)
         console.log('currentItem', currentItem)
-        const currentCount = currentItem.data.item[currentItem.data.item.length - 1].Item_Count
+        const currentCount = currentItem.data.count
         console.log('currentCount', currentCount)
         const newpayload = currentCount + 1
         payload = {...payload, count: newpayload }
@@ -76,8 +79,9 @@ fetchItems: () => async(dispatch: AppDispatch) => {
             const items:Array<IItem> = []
            data.map((item:any) => {
                 const temp:IItem = {id:0,name:'',count:0}
-                temp.id = item.Item.id
-                temp.name = item.Item.name
+                console.log('fetchItems data.map item:', item)
+                temp.id = item.item.id
+                temp.name = item.item.name
                 temp.count = item.count
                 items.push(temp)
             })

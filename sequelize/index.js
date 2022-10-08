@@ -10,6 +10,7 @@ const modelDefiners = [
 
 // We define all models according to their files.
 for (const modelDefiner of modelDefiners) {
+	console.log('modelDefiner ready: ', modelDefiner)
 	modelDefiner(sequelize);
 }
 

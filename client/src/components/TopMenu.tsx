@@ -10,7 +10,9 @@ import {useTypedSelector} from "../hooks/useTypedSelector";
 const TopMenu: FC = () => {
 
     const {fetchItems, addItem, sortByIncCountItem, sortByDecCountItem} = useActions()
-    const {isAuth} = useTypedSelector(state => state.auth);
+    const {isAuth, user} = useTypedSelector(state => state.auth);
+    console.log('user',user)
+    console.log('isAuth',isAuth)
 
     return (
             <div className='top-menu'>
@@ -18,7 +20,7 @@ const TopMenu: FC = () => {
             ?
             <Button icon={<ReactPlusCircle />} 
                 text="Добавить" 
-                onClick={()=> {addItem(String(prompt())); fetchItems()}} 
+                onClick={()=> {addItem(String(prompt()), user.id); fetchItems()}} 
                 className="top-menu_button"/>
             :<></>}        
             <Button icon={<ReactArrowRepeat />} 

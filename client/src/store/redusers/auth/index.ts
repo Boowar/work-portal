@@ -17,6 +17,7 @@ export default function itemReducer(state = initialState, action: AuthAction): A
         case AuthActionEnum.SET_IS_LOADING:
             return {...state, isLoading: action.payload}  
         case AuthActionEnum.SET_USER:
+            console.log('AuthActionEnum.SET_USER:',action.payload)
             return {...state, user: action.payload}            
         default:
             return state;
