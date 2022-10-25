@@ -1,15 +1,21 @@
 
 import {FC, useEffect} from 'react';
 import Item from '../components/Item';
-import { useActions } from '../hooks/useActions';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import { IItem } from '../models/IItem';
 import TopMenu from '../components/TopMenu';
 import ListItems from '../components/ListItems';
 
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../store';
+import { fetchItems } from '../store/slice/itemSlice';
+
 const Main: FC = () => {
+    const dispatch = useDispatch<AppDispatch>();
     useEffect( () => {
-        fetchItems()
+       const fetched = fetchItems()
+       dispatch(fetchItems())
+       console.log('fetching', fetched)
       }, [])
     const {items} = useTypedSelector(state => state.item)
     console.log('main items',items)
@@ -50,7 +56,6 @@ const Main: FC = () => {
         return result
     } */
 
-    const {fetchItems} = useActions()
     
     return (
         <div className="row">

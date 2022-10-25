@@ -1,17 +1,25 @@
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useActions } from '../hooks/useActions'
+import { registration } from '../store/slice/authSlice'
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../store';
 
 const SignupForm: FC = () => {
     const { register, handleSubmit } = useForm();
     const [data, setData] = useState("");
-    const {signin} = useActions()
-
+    const dispatch = useDispatch<AppDispatch>()
+    
     return (
         <div>
             <form onSubmit={handleSubmit( (data) => {setData(JSON.stringify(data));
-            console.log(data)
-            signin(data.username, data.password, data.email)
+            console.log(data);
+            const newUser = {
+                username: data.username,
+                password: data.password,
+                email: data.email
+            }
+
+            dispatch(registration(newUser))
         }              
                 )}>
                 <input {...register("username")} placeholder="Username" className="input"/>

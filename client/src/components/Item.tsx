@@ -3,7 +3,8 @@ import {useTypedSelector} from "../hooks/useTypedSelector";
 import ItemButtons from './ItemButtons';
 
 interface ItemProps {
-  id: number | string
+  id: number
+  itemId: number
   name: string
   count: number
 }

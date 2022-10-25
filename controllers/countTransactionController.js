@@ -1,18 +1,24 @@
 const {models} = require('../sequelize')
 const sequelize = require('../sequelize')
 const ApiError = require('../error/ApiError');
-const { LogTimings } = require('concurrently');
 
 class CountTransactionController {
     async create(req, res) {
-        const {itemId, userId, count} = req.body
+        try {
+            const {itemId, userId, count} = req.body
+        //let {itemID} = req.body
+        //itemID ? itemId = itemID : itemID = undefined
         console.log('CountTransactionController create req.body:', req.body)
         console.log('CountTransactionController create itemId:', itemId)
+        //console.log('CountTransactionController create itemID:', itemID)
         console.log('CountTransactionController create userId:', userId)
         console.log('CountTransactionController create count:', count)
-        const rating = await models.CountTransaction.create({itemId, userId, count:0})
+        const rating = await models.CountTransaction.create({itemId, userId, count})
         console.log('CountTransactionController create rating:', rating)
-        return res.json(rating)
+        return res.json(rating)}
+        catch (error) {
+            console.log('error',error)
+        }
     }
 
     async getAll(req, res) {

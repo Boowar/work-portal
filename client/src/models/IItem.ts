@@ -1,5 +1,8 @@
 export interface IItem {
-    id: number | string;
-    name: string;
+    id: number;
+    item:{
+        id:number, 
+        name: string
+    };
     count: number;
 }

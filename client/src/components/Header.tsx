@@ -1,15 +1,18 @@
 import { FC } from "react";
-import { useActions } from "../hooks/useActions";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {useNavigate} from 'react-router-dom';
 import { RouteNames } from '../router';
 import Button from './Button'
 
-const Header: FC = () => {
-    const {isAuth, user} = useTypedSelector(state => state.auth);
-    const {logout} = useActions()
-    const navigate = useNavigate()
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../store';
+import { logout } from "../store/slice/authSlice";
 
+const Header: FC = () => {
+    const dispatch = useDispatch<AppDispatch>()
+    const {isAuth, user} = useTypedSelector(state => state.auth);
+    const navigate = useNavigate()
+    console.log('Header user', user)
     return (
         <div className="header">
             {isAuth 
@@ -19,7 +22,7 @@ const Header: FC = () => {
                 Hello, {user.username}!
             </div>
             <Button text="Выйти" 
-                onClick={()=> logout()} 
+                onClick={()=> dispatch(logout())} 
                 className="header-button"/>
             </>
             :

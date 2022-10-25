@@ -3,9 +3,9 @@ const {models} = require('../sequelize')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
-const generateJwt = (id, name, role) => {
+const generateJwt = (id, username, role) => {
     return jwt.sign(
-        {id, name, role},
+        {id, username, role},
         process.env.SECRET_KEY,
         {expiresIn: '24h'}
     )

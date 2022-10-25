@@ -16,7 +16,8 @@ function applyExtraSetup(sequelize) {
     //User.CountTransaction = User.hasMany(CountTransaction)
     CountTransaction.User = CountTransaction.belongsTo(User, {
         as: 'user',
-        foreignKey: 'userId'
+        foreignKey: 'userId',
+        constraints: false
       })
     console.log('applyExtraSetup ready')
 }

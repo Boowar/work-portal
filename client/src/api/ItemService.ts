@@ -22,50 +22,31 @@ export default class ItemService {
     static async addItem(name: string, userId: number): Promise<AxiosResponse> {
        // return axios.post(`${ItemService.mainURL}/add_item`, {Item_Name: data})
        const item = await $host.post('api/item/create', {name, userId})
-
        console.log('ItemService addItem item:',item)
-       console.log('ItemService addItem item.data.id:',item.data.id)
-       const id = item.data.id
-       console.log('ItemService addItem item.data.count:',item.data.count)
-       const count = item.data.count
-       const newItemA = {
-        id: id,
-        userId: 2,
-        count: count
-       }
-       //const newItem = await $host.post('api/counttransaction/create', {id, userId:1, count})
-       //console.log('ItemService addItem newItem:', newItem)
        return item
     }
 
-    static async delItem(data: number | string): Promise<AxiosResponse> {
-        console.log("delItem: data", data)
-        const url = `${ItemService.mainURL}/del_item/${data}`
-        console.log("delItem: url", url)
-        return axios.post(url)
+    static async delItem(itemId: number ): Promise<AxiosResponse> {
+        console.log("delItem: itemId", itemId)
+        const item = await $host.post('api/item/delete', {itemId})
+        console.log("delItem: item:", item)
+        return item
     }
 
-    /*static async updateCountItem(data: number | string, count: number): Promise<AxiosResponse> {
-        console.log("updateCountItem: data", data)
+    static async updateCountItem(itemId: number, userId: number, count: number): Promise<AxiosResponse> {
+        console.log("updateCountItem: data", itemId)
+        console.log("updateCountItem: data", userId)
         console.log("updateCountItem: count", count)
-        const url = `${ItemService.mainURL}/update_item_count/${data}`
-        console.log("updateCountItem: url", url)
-        return axios.post(url, {Item_Count: count})
-    }*/
-
-    static async updateCountItem(data: number | string, count: number): Promise<AxiosResponse> {
-        console.log("updateCountItem: data", data)
-        console.log("updateCountItem: count", count)
-        const item = await $host.post('api/counttransaction/create', {data, count})
+        const item = await $host.post('api/counttransaction/create', {itemId, userId, count})
         console.log("updateCountItem: item", item)
         return item
     }
 
-    static async updateNameItem(data: number | string, name: string): Promise<AxiosResponse> {
-        console.log("updateNameItem: data", data)
-        console.log("updateNameItem: count", name)
-        const url = `${ItemService.mainURL}/update_item_name/${data}`
-        console.log("updateNameItem: url", url)
-        return axios.post(url, {Item_Name: name})
+    static async updateNameItem(itemId: number, name: string): Promise<AxiosResponse> {
+        console.log("updateNameItem: itemId", itemId)
+        console.log("updateNameItem: name", name)
+        const item = await $host.post('api/item/rename', {itemId, name})
+        console.log("updateNameItem: item", item)
+        return item
     }
 }
