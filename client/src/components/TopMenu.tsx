@@ -37,9 +37,7 @@ const TopMenu: FC = () => {
                         name,
                         id: user.id
                     }
-                    dispatch(addItem(newItem)); 
-                    console.log('newItem:',newItem);
-                    dispatch(fetchItems())}} 
+                    dispatch(addItem(newItem)).then(()=>dispatch(fetchItems()))}} 
                 className="top-menu_button"/>
             :<></>}        
             <Button icon={<ReactArrowRepeat />} 

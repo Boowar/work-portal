@@ -3,13 +3,13 @@ import {IItem} from "../models/IItem";
 import {$authHost, $host} from "./index";
 
 export default class ItemService {
-    public static readonly mainURL = 'http://172.16.201.169:3001/api'
+    //public static readonly mainURL = 'http://172.16.201.169:3001/api'
     
     static async getItems(){
        // return axios.get<IItem[]>('./items.json')
-          const response = axios.get<IItem[]>(`${ItemService.mainURL}/counttransaction/`)
+          const response = await $host.get<IItem[]>(`api/counttransaction/`)
           console.log("getItems: ", response)
-       return response.then((data)=> data)
+       return response
     }
 
     static async getItem(data: number | string): Promise<AxiosResponse> {
