@@ -52,6 +52,8 @@ const authSlice = createSlice({
     },
     extraReducers: {
         [registration.pending.type]: (state) => {
+            state.error = ''
+
             state.isLoading = true;
           },
         [registration.fulfilled.type]: (state) => {
@@ -60,8 +62,10 @@ const authSlice = createSlice({
         [registration.rejected.type]: (state, action) => {
             console.log(action);
             state.isLoading = false;
+            state.error = 'Ошибка при регистрации'
           },
         [login.pending.type]: (state) => {
+            state.error = ''
             state.isLoading = true;
           },
         [login.fulfilled.type]: (state, action) => {
@@ -72,6 +76,7 @@ const authSlice = createSlice({
         [login.rejected.type]: (state, action) => {
             console.log(action);
             state.isLoading = false;
+            state.error = 'Ошибка при авторизации'
           },
     }
 })

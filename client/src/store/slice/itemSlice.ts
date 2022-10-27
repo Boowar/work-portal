@@ -106,7 +106,9 @@ export const delItem = createAsyncThunk(
 const initialState = {
     error: '',
     isLoading: false,
-    items: [] as IItem[]
+    items: [] as IItem[],
+    sortedItems: [] as IItem[],
+    sorting: 'ALL'
 }
 
 const itemSlice = createSlice({
@@ -118,19 +120,25 @@ const itemSlice = createSlice({
         },
         setError(state, action){
             state.error = action.payload
-        } 
+        },
+        setSort(state, action){
+            state.sorting = action.payload
+        }
     },
     extraReducers: {
         [fetchItems.pending.type]: (state) => {
             state.isLoading = true;
+            state.error = ''
           },
         [fetchItems.fulfilled.type]: (state, action) => {
             state.isLoading = false;
             state.items = action.payload
+            state.sortedItems = state.items
         },
         [fetchItems.rejected.type]: (state, action) => {
             console.log(action);
             state.isLoading = false;
+            state.error = "Ошибка при получении данных"
           },
         [addItem.pending.type]: (state) => {
             state.isLoading = true;
@@ -142,6 +150,7 @@ const itemSlice = createSlice({
         [addItem.rejected.type]: (state, action) => {
             console.log(action);
             state.isLoading = false;
+            state.error = "Ошибка при добавлении элемента"
           },
         [incCountItem.pending.type]: (state) => {
             state.isLoading = true;
@@ -153,6 +162,7 @@ const itemSlice = createSlice({
         [incCountItem.rejected.type]: (state, action) => {
             console.log('incCountItem.rejected.type:', action);
             state.isLoading = false;
+            state.error = "Ошибка при изменении данных"
           },
         [renameItem.pending.type]: (state) => {
             state.isLoading = true;
@@ -164,6 +174,7 @@ const itemSlice = createSlice({
         [renameItem.rejected.type]: (state, action) => {
             console.log('renameItem.rejected.type:', action);
             state.isLoading = false;
+            state.error = "Ошибка при изменении данных"
           },
         [delItem.pending.type]: (state) => {
             state.isLoading = true;
@@ -175,11 +186,12 @@ const itemSlice = createSlice({
         [delItem.rejected.type]: (state, action) => {
             console.log('renameItem.rejected.type:', action);
             state.isLoading = false;
+            state.error = "Ошибка при удалении данных"
           }, 
     }
 })
 
 console.log('itemSlice:', itemSlice)
 
-export const {setItems, setError} = itemSlice.actions
+export const {setItems, setError, setSort} = itemSlice.actions
 export default itemSlice.reducer

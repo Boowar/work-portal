@@ -3,14 +3,18 @@ import { useForm } from "react-hook-form";
 import { registration } from '../store/slice/authSlice'
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../store';
+import { useTypedSelector } from "../hooks/useTypedSelector";
 
 const SignupForm: FC = () => {
     const { register, handleSubmit } = useForm();
     const [data, setData] = useState("");
     const dispatch = useDispatch<AppDispatch>()
     
+    const {error} = useTypedSelector(state => state.auth)
+
     return (
         <div>
+            {error}
             <form onSubmit={handleSubmit( (data) => {setData(JSON.stringify(data));
             console.log(data);
             const newUser = {
@@ -28,6 +32,7 @@ const SignupForm: FC = () => {
             <p>{data}</p>
             <input type="submit" className="submit-button"/>
             </form>
+            
         </div>
     )
 }

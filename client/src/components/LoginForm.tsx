@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { useDispatch } from 'react-redux';
+import { useTypedSelector } from "../hooks/useTypedSelector";
 import { AppDispatch } from '../store';
 import { login } from "../store/slice/authSlice";
 
@@ -14,10 +15,11 @@ const LoginForm: FC= () => {
     const dispatch = useDispatch<AppDispatch>();
     const { register, handleSubmit } = useForm<ILoginForm>();
     const [data, setData] = useState('');
-    //const {login} = useActions()
+    const {error} = useTypedSelector(state => state.auth)
 
     return (
         <div className="loginform">
+            {error}
             <form onSubmit={handleSubmit( (data) => {setData(JSON.stringify(data));
             console.log('loginform data:', data)
             dispatch(login(data))
