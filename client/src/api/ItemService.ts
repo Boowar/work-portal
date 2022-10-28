@@ -37,9 +37,12 @@ export default class ItemService {
         console.log("updateCountItem: data", itemId)
         console.log("updateCountItem: data", userId)
         console.log("updateCountItem: count", count)
-        const item = await $host.post('api/counttransaction/create', {itemId, userId, count})
-        console.log("updateCountItem: item", item)
-        return item
+        //const item = await $host.get(`api/counttransaction/${itemId}`)
+        //console.log("updateCountItem: item", item)
+        //count = item.data.count
+        const newItem = await $host.post('api/counttransaction/create', {itemId, userId, count })
+        console.log("updateCountItem: newItem", newItem)
+        return newItem
     }
 
     static async updateNameItem(itemId: number, name: string): Promise<AxiosResponse> {

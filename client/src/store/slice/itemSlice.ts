@@ -47,7 +47,7 @@ export const incCountItem = createAsyncThunk(
     'item/incCountItem',
     async (data: INewCount ) => {
         console.log('incCountItem data 1',data)
-        const currentItem = await ItemService.getItem(data.id)
+        const currentItem = await ItemService.getItem(data.itemId)
         console.log('currentItem', currentItem)
         const currentCount = currentItem.data.count
         console.log('currentCount', currentCount)
@@ -67,7 +67,7 @@ export const decCountItem = createAsyncThunk(
     'item/decCountItem',
     async (data: INewCount ) => {
         console.log('incCountItem data 1',data)
-        const currentItem = await ItemService.getItem(data.id)
+        const currentItem = await ItemService.getItem(data.itemId)
         console.log('currentItem', currentItem)
         const currentCount = currentItem.data.count
         console.log('currentCount', currentCount)
@@ -142,6 +142,7 @@ const itemSlice = createSlice({
           },
         [addItem.pending.type]: (state) => {
             state.isLoading = true;
+            state.error = ''
           },
         [addItem.fulfilled.type]: (state, action) => {
             state.isLoading = false;
@@ -154,6 +155,7 @@ const itemSlice = createSlice({
           },
         [incCountItem.pending.type]: (state) => {
             state.isLoading = true;
+            state.error = ''
           },
         [incCountItem.fulfilled.type]: (state) => {
             state.isLoading = false;
@@ -166,6 +168,7 @@ const itemSlice = createSlice({
           },
         [renameItem.pending.type]: (state) => {
             state.isLoading = true;
+            state.error = ''
           },
         [renameItem.fulfilled.type]: (state) => {
             state.isLoading = false;
@@ -178,6 +181,7 @@ const itemSlice = createSlice({
           },
         [delItem.pending.type]: (state) => {
             state.isLoading = true;
+            state.error = ''
           },
         [delItem.fulfilled.type]: (state) => {
             state.isLoading = false;

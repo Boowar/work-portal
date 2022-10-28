@@ -57,6 +57,7 @@ const authSlice = createSlice({
             state.isLoading = true;
           },
         [registration.fulfilled.type]: (state) => {
+            state.error = 'Вы успешно зарегистрированы'
             state.isLoading = false;
         },
         [registration.rejected.type]: (state, action) => {

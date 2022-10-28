@@ -44,15 +44,17 @@ class CountTransactionController {
     }
 
     async getOneCurrentCount(req, res) {
-        console.log('CountTransaction: getAllCurrentCount')
+        console.log('CountTransaction: getOneCurrentCount req.params', req.params)
         const {id} = req.params
         const item = await models.CountTransaction.findOne({
-            where: {id},
-            attributes: {include:[[sequelize.fn('MAX', sequelize.col('CountTransaction.id')), 'id']]},
+            where: {itemId: id},
+            attributes: {
+                include:[[sequelize.fn('MAX', sequelize.col('CountTransaction.id')), 'id']]
+            },
             include: [{model: models.Item, as: 'item'}],
             group: ['itemId']
         })
-        console.log('CountTransaction: getAllCurrentCount', item)
+        console.log('CountTransaction: getOneCurrentCount', item)
         return res.json(item)
     }    
 
