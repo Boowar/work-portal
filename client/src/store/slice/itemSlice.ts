@@ -108,7 +108,8 @@ const initialState = {
     isLoading: false,
     items: [] as IItem[],
     sortedItems: [] as IItem[],
-    sorting: 'ALL'
+    sorting: 'ALL',
+    isOpen: false
 }
 
 const itemSlice = createSlice({
@@ -123,6 +124,9 @@ const itemSlice = createSlice({
         },
         setSort(state, action){
             state.sorting = action.payload
+        },
+        setOpen(state, action){
+            state.isOpen = action.payload
         }
     },
     extraReducers: {
@@ -146,7 +150,8 @@ const itemSlice = createSlice({
           },
         [addItem.fulfilled.type]: (state, action) => {
             state.isLoading = false;
-            state.items.concat(action.payload)
+            console.log('addItem.fulfilled.type', action);
+            //state.items.concat(action.payload.data.items)
         },
         [addItem.rejected.type]: (state, action) => {
             console.log(action);
@@ -197,5 +202,5 @@ const itemSlice = createSlice({
 
 console.log('itemSlice:', itemSlice)
 
-export const {setItems, setError, setSort} = itemSlice.actions
+export const {setItems, setError, setSort, setOpen} = itemSlice.actions
 export default itemSlice.reducer
