@@ -7,7 +7,7 @@
     "client": "yarn --cwd client start",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
     "setup-db": "node ./setup.js",
-    "build": "yarn --cwd clent build"
+    "build": "yarn --cwd client build"
   },
   "repository": "https://github.com/Boowar/work-portal.git",
   "author": "as.yarchuk <as.yarchuk@gmail.com>",
