@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/static/css/main.8728e836.css",
+    "main.js": "/static/js/main.02ab41d4.js",
+    "static/media/bi-patch-plus.svg": "/static/media/bi-patch-plus.7a31b372e58e33ae695efafbe315609e.svg",
+    "static/media/bi-patch-minus.svg": "/static/media/bi-patch-minus.2bf04b3f2033378f53ea1f8035775de9.svg",
+    "static/media/bi-arrow-repeat.svg": "/static/media/bi-arrow-repeat.32014a78c663e712ba005c95b315c096.svg",
+    "static/media/bi-trash.svg": "/static/media/bi-trash.c0e8efe7eb10101abd05bf35ed188379.svg",
+    "index.html": "/index.html",
+    "static/media/bi-plus-circle.svg": "/static/media/bi-plus-circle.afc878cad2b93a430f3ab3e1617f0b82.svg",
+    "static/media/arrow-down.svg": "/static/media/arrow-down.52875a882998d69ded3e4f18cc378d1e.svg",
+    "static/media/arrow-up.svg": "/static/media/arrow-up.2880ac58706978b4f08e471b244ec844.svg",
+    "main.8728e836.css.map": "/static/css/main.8728e836.css.map",
+    "main.02ab41d4.js.map": "/static/js/main.02ab41d4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8728e836.css",
+    "static/js/main.02ab41d4.js"
+  ]
+}
