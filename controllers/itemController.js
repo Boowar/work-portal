@@ -64,7 +64,7 @@ class ItemController {
     */
     async getAll(req, res) {
         console.log('ItemController: getAll')
-        const items = await Item.findAll()
+        const items = await models.Item.findAll()
         return res.json(items)
     }
 
