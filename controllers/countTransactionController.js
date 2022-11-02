@@ -22,28 +22,32 @@ class CountTransactionController {
     }
 
     async getAll(req, res) {
+        try {
         console.log('CountTransaction: getAll')
         const items = await models.CountTransaction.findAll({include: models.Item})
         return res.json(items)
+        } catch (error) {
+            console.log('error',error)
+        }
     }
 
     async getAllCurrentCount(req, res) {
+        try {
         console.log('CountTransaction: getAllCurrentCount')
-        /*const items = await models.CountTransaction.findAll({
-            order: [sequelize.fn('MAX', sequelize.col('CountTransaction.id'))],
-            include: [{model: CountTransaction,as: 'ItemId'}], 
-            group: ['itemId']
-        })*/
         const items = await models.CountTransaction.findAll({
             attributes: {include:[[sequelize.fn('MAX', sequelize.col('CountTransaction.id')), 'id']]},
             include: [{model: models.Item, as: 'item'}],
             group: ['itemId']
         })
-        console.log('CountTransaction: getAllCurrentCount', items)
-        return res.json(items)
+            console.log('CountTransaction: getAllCurrentCount', items)
+            return res.json(items)
+        } catch (error) {
+            console.log('error',error)
+        }
     }
 
     async getOneCurrentCount(req, res) {
+        try {
         console.log('CountTransaction: getOneCurrentCount req.params', req.params)
         const {id} = req.params
         const item = await models.CountTransaction.findOne({
@@ -56,9 +60,13 @@ class CountTransactionController {
         })
         console.log('CountTransaction: getOneCurrentCount', item)
         return res.json(item)
+    } catch (error) {
+        console.log('error',error)
+    }
     }    
 
     async getOne(req,res) {
+        try {
         const {id} = req.params
         const item = await models.CountTransaction.findOne(
             {
@@ -66,6 +74,9 @@ class CountTransactionController {
             }
         )
             return res.json(item)
+        } catch (error) {
+            console.log('error',error)
+        }
     }
 
 }
