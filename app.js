@@ -22,7 +22,7 @@ function makeHandlerAwareOfAsyncErrors(handler) {
 
 // We provide a root route just as an example
 app.get('/', (req, res) => {
-    console.log(routes)
+    res.json('hello world')
 });
 
 app.use('/api', makeHandlerAwareOfAsyncErrors(routes))
