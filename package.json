@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start":"node index.js",
+    "start": "node index.js",
     "server": "nodemon index.js",
     "client": "yarn --cwd client start",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
@@ -26,6 +26,8 @@
     "jsonwebtoken": "^8.5.1",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
+    "pg": "^8.8.0",
+    "pg-hstore": "^2.3.4",
     "sequelize": "^6.22.0",
     "sqlite3": "^5.0.11",
     "uuid": "^9.0.0"
