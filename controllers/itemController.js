@@ -10,22 +10,23 @@ class ItemController {
     Функция автоматически создает транзакцию для объекта Item, со значением {count = 0}
     */
     async create(req, res) {
-        const {name, userId} = req.body
+        let {name, userId} = req.body
+        name === null || name === undefined || name === "" ? name = "Не забывайте называть объект" : name
         console.log('ItemController create req.body:  ', req.body)
         const item = await models.Item.create({
             name,
             userId}
         )
         const itemId = item.dataValues.id
-        console.log('ItemController item:  ', item)
-        console.log('ItemController item.dataValues.id:  ', item.dataValues.id)
+        console.log('ItemController item:', item)
+        console.log('ItemController item.dataValues.id:', item.dataValues.id)
         const rating = await models.CountTransaction.create({itemId, userId, count:0})     
-       // console.log('ItemController rating:  ', rating)
         return res.json(rating)
     }
 
     async rename(req, res) {
-        const {itemId, name} = req.body
+        let {itemId, name} = req.body
+        name === null || name === undefined || name === "" ? name = "Не забывайте называть объект" : name
         console.log('ItemController rename req.body:', req.body)
         const item = await models.Item.findOne({
             where: {id: itemId}}
