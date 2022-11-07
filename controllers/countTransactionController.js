@@ -38,8 +38,7 @@ class CountTransactionController {
             attributes: [sequelize.literal('DISTINCT ON ("CountTransaction"."itemId") "CountTransaction"."itemId"'), 'count', 'id'],
             include: [{
                 model: models.Item, 
-                as: 'item', 
-                attributes: ['name']
+                as: 'item'
             }],
             group: ['CountTransaction.id','item.id'],
             order: ["itemId",['id', 'DESC']]
@@ -57,11 +56,10 @@ class CountTransactionController {
         const {id} = req.params
         const item = await models.CountTransaction.findOne({
             where: {itemId: id},
-            attributes: {
-                include:[[sequelize.fn('MAX', sequelize.col('CountTransaction.id')), 'id']]
-            },
+            attributes: [sequelize.literal('DISTINCT ON ("CountTransaction"."itemId") "CountTransaction"."itemId"'), 'count', 'id'],
             include: [{model: models.Item, as: 'item'}],
-            group: ['itemId']
+            group: ['CountTransaction.id','item.id'],
+            order: ["itemId",['id', 'DESC']]
         })
         console.log('CountTransaction: getOneCurrentCount', item)
         return res.json(item)
