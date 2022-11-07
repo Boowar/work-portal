@@ -35,9 +35,14 @@ class CountTransactionController {
         try {
         console.log('CountTransaction: getAllCurrentCount')
         const items = await models.CountTransaction.findAll({
-            attributes: {include:[[sequelize.fn('MAX', sequelize.col('CountTransaction.id')), 'id']]},
-            include: [{model: models.Item, as: 'item'}],
-            group: ['itemId']
+            attributes: [sequelize.literal('DISTINCT ON ("CountTransaction"."itemId") "CountTransaction"."itemId"'), 'count', 'id'],
+            include: [{
+                model: models.Item, 
+                as: 'item', 
+                attributes: ['name']
+            }],
+            group: ['CountTransaction.id','item.id'],
+            order: ["itemId",['id', 'DESC']]
         })
             console.log('CountTransaction: getAllCurrentCount', items)
             return res.json(items)
