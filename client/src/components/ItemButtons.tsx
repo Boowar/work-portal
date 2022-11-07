@@ -30,7 +30,11 @@ const ItemButtons:FC<ItemProps> = (props) => {
       onClick={()=> dispatch(decCountItem(props)).then(()=>dispatch(fetchItems()))} className="item-field_button_minus"/>
       <Button icon={<ReactArrowRepeat/>} text="Изменить имя" 
       onClick={()=>{ 
-        const newName = String(prompt());
+        let newName = String(prompt());
+        if (newName === null || newName === undefined || newName === "") {
+          console.log("newName не задано")
+          newName = "Не забывайте называть объект"
+      } else {console.log("newName:", newName)} 
         const newItem = {
           name: newName,
           id: props.itemId
